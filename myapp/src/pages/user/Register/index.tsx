@@ -36,11 +36,13 @@ const Register: React.FC = () => {
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
         const { query } = history.location;
-        const { redirect } = query as {
-          redirect: string;
-        };
-        // 注册成功就跳转到登录页
-        history.push('/user/login/redirect=' + redirect);
+
+        // 注册成功就跳转到登录页并记录重定向
+        history.push({
+          pathname: '/user/login',
+          query,
+        });
+
         return;
       } else {
         // 注册失败就抛异常，也会被后面给 catch 到
