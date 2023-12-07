@@ -53,8 +53,12 @@ const columns: ProColumns<API.CurrentUser>[] = [
   },
   {
     title: '邮箱',
-      dataIndex: 'email',
+    dataIndex: 'email',
     copyable: true,
+  },
+  {
+    title: '星球编号',
+    dataIndex: 'planetCode',
   },
   {
     title: '用户状态',
