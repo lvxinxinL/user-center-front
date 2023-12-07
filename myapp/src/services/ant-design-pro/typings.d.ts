@@ -12,6 +12,7 @@ declare namespace API {
     email: string;
     userStatus: number;
     userRole: number;
+    planetCode: string;
     createTime: Date;
   };
 
@@ -66,8 +67,19 @@ declare namespace API {
     userAccount?: string;
     userPassword?: string;
     checkPassword?: string;
+    planetCode?: string;
     type?: string;
   };
+
+  /**
+   * 通用返回类
+   */
+  type BaseResponse<T> = {
+    code: number;
+    data: T;
+    message: string;
+    description: string;
+  }
 
   type ErrorResponse = {
     /** 业务约定的错误码 */
