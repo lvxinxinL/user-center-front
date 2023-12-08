@@ -11,7 +11,6 @@ import {
 } from '@ant-design/pro-components';
 import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { history } from 'umi';
 import styles from './index.less';
 
 const Register: React.FC = () => {
@@ -28,29 +27,20 @@ const Register: React.FC = () => {
 
     try {
       // 注册
-      const id = await register(values);
+      const res = await register(values);
 
-      if (id > 0) {
+      if (res.code === 0 && res.data > 0) {
         const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
         /** 此方法会跳转到 redirect 参数所在的位置 */
-        if (!history) return;
-        const { query } = history.location;
-
-        // 注册成功就跳转到登录页并记录重定向
-        history.push({
-          pathname: '/user/login',
-          query,
-        });
-
         return;
       } else {
         // 注册失败就抛异常，也会被后面给 catch 到
-        throw new Error(`register error id = ${id}`);
+        throw new Error(res.description);
       }
-    } catch (error) {
+    } catch (error: any) {
       const defaultLoginFailureMessage = '注册失败，请重试！';
-      message.error(defaultLoginFailureMessage);
+      message.error(error.message ?? defaultLoginFailureMessage);
     }
   };
   // const { status, type: loginType } = userLoginState;
@@ -131,6 +121,20 @@ const Register: React.FC = () => {
                   {
                     min: 8,
                     message: '密码长度不能小于 8 位',
+                  }
+                ]}
+              />
+              <ProFormText
+                name="planetCode"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined className={styles.prefixIcon} />,
+                }}
+                placeholder={'请输入星球编号'}
+                rules={[
+                  {
+                    required: true,
+                    message: '星球编号是必填项！',
                   }
                 ]}
               />
