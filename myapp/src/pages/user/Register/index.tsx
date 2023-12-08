@@ -34,7 +34,7 @@ const Register: React.FC = () => {
         message.success(defaultLoginSuccessMessage);
         /** 此方法会跳转到 redirect 参数所在的位置 */
         if (!history) return;
-        const { query } = history.location;
+        const {query} = history.location;
         // 注册成功就跳转到登录页并记录重定向
         history.push({
           pathname: '/user/login',
