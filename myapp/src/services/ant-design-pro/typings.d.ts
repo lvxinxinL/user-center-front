@@ -67,12 +67,16 @@ declare namespace API {
     userAccount?: string;
     userPassword?: string;
     checkPassword?: string;
-    planetCode?: string;
+    planetCode: string;
     type?: string;
   };
 
   /**
+<<<<<<< HEAD
    * 通用返回类
+=======
+   * 通用返回对象
+>>>>>>> 8a2aa2a (Restore the previous code)
    */
   type BaseResponse<T> = {
     code: number;

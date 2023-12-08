@@ -11,8 +11,8 @@ import {
 } from '@ant-design/pro-components';
 import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { history } from 'umi';
 import styles from './index.less';
+import {history} from "umi";
 
 const Register: React.FC = () => {
   const [type, setType] = useState<string>('account');
@@ -139,7 +139,7 @@ const Register: React.FC = () => {
                   {
                     required: true,
                     message: '星球编号是必填项！',
-                  },
+                  }
                 ]}
               />
             </>
