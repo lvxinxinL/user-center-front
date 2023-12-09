@@ -17,9 +17,10 @@ const request = extend({
 });
 
 /**
- * 所以请求拦截器
+ * 所有请求拦截器
  */
 request.interceptors.request.use((url, options): any => {
+  console.log(`do request url = ${url}`) // 打印请求访问路径
   return {
     url,
     options: {
@@ -34,20 +35,20 @@ request.interceptors.request.use((url, options): any => {
  * 所有响应拦截器
  */
 request.interceptors.response.use(async (response, options): Promise<any> => {
-
-  const res = await response.clone().json();
-  if (res.code === 0) {
+  const res = await response.clone().json();//取出响应数据进行处理
+  // console.log("全局响应拦截器", res)
+  if (res.code === 0) {// 成功
     return res.data;
   }
-  if (res.code === 40100) {
+  if (res.code === 40100) {// 未登录异常
     message.error('请先登录');
     history.replace({
       pathname: '/user/login',
       search: stringify({
-        redict: location.pathname,
+        redirect: location.pathname,
       }),
     });
-  } else {
+  } else {// 出现其他异常就显示异常详情信息
     message.error(res.description);
   }
   return res.data;
