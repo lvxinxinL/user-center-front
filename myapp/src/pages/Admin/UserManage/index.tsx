@@ -30,7 +30,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
     copyable: true,
   },
   {
-    title: '用户账号',
+    title: '账号',
     dataIndex: 'userAccount',
     copyable: true,
   },

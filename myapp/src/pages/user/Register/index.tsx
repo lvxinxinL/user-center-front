@@ -12,6 +12,7 @@ import {
 import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import styles from './index.less';
+import {history} from 'umi';
 
 const Register: React.FC = () => {
   const [type, setType] = useState<string>('account');
@@ -27,20 +28,23 @@ const Register: React.FC = () => {
 
     try {
       // 注册
-      const res = await register(values);
+      const id = await register(values);// 加了响应拦截器之后取出来的数据直接就是 data
 
-      if (res.code === 0 && res.data > 0) {
+      if (id) {
         const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
         /** 此方法会跳转到 redirect 参数所在的位置 */
+        if(!history)return;
+        const {query} = history.location;
+        history.push({
+          pathname: '/user/login',
+          query,
+        })
         return;
-      } else {
-        // 注册失败就抛异常，也会被后面给 catch 到
-        throw new Error(res.description);
       }
-    } catch (error: any) {
-      const defaultLoginFailureMessage = '注册失败，请重试！';
-      message.error(error.message ?? defaultLoginFailureMessage);
+    } catch (error) {
+      // const defaultLoginFailureMessage = '注册失败，请重试！';
+      // message.error(defaultLoginFailureMessage);
     }
   };
   // const { status, type: loginType } = userLoginState;
