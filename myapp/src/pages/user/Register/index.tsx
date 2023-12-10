@@ -12,7 +12,7 @@ import {
 import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import styles from './index.less';
-import {history} from "umi";
+import {history} from 'umi';
 
 const Register: React.FC = () => {
   const [type, setType] = useState<string>('account');
